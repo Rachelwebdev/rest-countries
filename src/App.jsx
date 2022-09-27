@@ -2,18 +2,21 @@ import { useEffect, useState } from "react";
 import "./App.css";
 
 import Navbar from "./components/Navbar";
+import Home from "./components/Home";
 
 function App() {
   const url = "https://restcountries.com/v3.1/all";
 
   const [countries, setCountries] = useState([]);
 
+  //use async/await to fetch data
   const getCountries = async () => {
     const response = await fetch(url);
     const data = await response.json();
     setCountries(data);
   };
 
+  //Calls the function "getCountries" when the page loads
   useEffect(() => {
     getCountries();
   }, []);
@@ -23,9 +26,9 @@ function App() {
       <header>
         <Navbar />
       </header>
-      {countries.map((country) => {
-        return <p>{country.name.common}</p>;
-      })}
+      <main>
+        <Home countries={countries} />
+      </main>
     </div>
   );
 }
